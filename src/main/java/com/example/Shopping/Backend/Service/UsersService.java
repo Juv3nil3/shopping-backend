@@ -51,4 +51,15 @@ public class UsersService {
             throw  new UserNotFoundException("The following user does not exist in our system");
         }
     }
+
+    public boolean isAdmin(String userName) {
+        Users user = usersRepository.findByUserName(userName);
+        if(user == null) {
+            throw new UserNotFoundException("The following user does not exists");
+        }
+        if(user.isAdminApproved() == true) {
+            return true;
+        }
+        return false;
+    }
 }
